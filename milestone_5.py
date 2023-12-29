@@ -6,7 +6,8 @@ class Hangman:
         self.hangman_word = random.choice(word_list)
         self.word_guessed = "_" * len(self.hangman_word)
         self.num_letters = len(self.hangman_word)
-        self.word_list = ["apple", "orange", "mango", "pear", "melon"]
+        self.word_list = ["apple"]
+        #self.word_list = ["apple", "orange", "mango", "pear", "melon"]
         self.list_of_guesses = []
         self.num_lives = num_lives
         print(self.hangman_word)
@@ -33,29 +34,29 @@ class Hangman:
                     if self.hangman_word[i] in guessed:
                         self.word_guessed = word_guessed[:i] + self.hangman_word[i] + word_guessed[i+1:]
                         num_letters = self.num_letters - 1
-                        return word_guessed, num_letters
-                    print(word_guessed)
+                        print(word_guessed, end=' ')
+            return word_guessed, num_letters
+
         else:
-                        num_lives = self.num_lives - 1
+                        self.num_lives = self.num_lives - 1
                         print("You have {num_lives} lives left.")
-                        print(num_lives)
-                        return num_lives
+                        print(self.num_lives)
+                       # return num_lives
 
 def play_game(word_list):
     num_lives = 5
     game = Hangman(word_list, num_lives = 5)
     while True:
-        if num_lives == 0:
+        if game.num_lives == 0:
             print("You Lost")
             break
-        elif num_lives >= 0 and game.num_letters >= 0:
+        elif game.num_lives >= 0 and game.num_letters >= 0:
             game.ask_for_input()
-
             continue
         else: 
             print("congratulations, you won the game!")
             break  
 
 if __name__ == '__main__':
-    game =play_game(word_list=["apple", "orange", "mango", "pear", "melon"])
-    play_game()
+    play_game(word_list=["apple"])
+    print("Game is finished")
