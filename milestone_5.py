@@ -22,24 +22,27 @@ class Hangman:
                 print("You already tried that letter!")
                 continue
             else:
+                self.list_of_guesses.append(guess.lower())
+                print(f"Guessed letters {self.list_of_guesses} ")
                 break
-        return self.check_guess(guess) #self.num_letters, self.num_lives
+        self.check_guess(guess)
+     #self.num_letters, self.num_lives
     guessed = ask_for_input
-        
+       
     def check_guess(self, guessed): #num_letters, num_lives
-        word_guessed = self.word_guessed
+        # word_guessed = self.word_guessed
         if guessed.lower() in self.hangman_word:
             print("The letter is in the word")
             for i in range(len(self.hangman_word)):
                     if self.hangman_word[i] in guessed:
-                        self.word_guessed = word_guessed[:i] + self.hangman_word[i] + word_guessed[i+1:]
-                        num_letters = self.num_letters - 1
-                        print(word_guessed, end=' ')
-            return word_guessed, num_letters
-
+                        self.word_guessed = self.word_guessed[:i] + self.hangman_word[i] + self.word_guessed[i+1:]
+                        self.num_letters = self.num_letters - 1
+            print(self.word_guessed, end=' ')
+            print(f"There is {self.num_letters} to go")
+               
         else:
                         self.num_lives = self.num_lives - 1
-                        print("You have {num_lives} lives left.")
+                        print(f"You have {self.num_lives} lives left.")
                         print(self.num_lives)
                        # return num_lives
 
@@ -50,10 +53,10 @@ def play_game(word_list):
         if game.num_lives == 0:
             print("You Lost")
             break
-        elif game.num_lives >= 0 and game.num_letters >= 0:
+        elif game.num_lives >= 0 and game.num_letters >= 1:
             game.ask_for_input()
             continue
-        else: 
+        else:
             print("congratulations, you won the game!")
             break  
 
